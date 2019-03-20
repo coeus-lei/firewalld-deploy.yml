@@ -1,0 +1,12 @@
+---
+- hosts: webserver
+  user: root
+  tasks:
+  - name: make sure firewalld is running
+    service: name=firewalld state=started enabled=yes
+
+  - name: open 80/tcp port
+    command: firewall-cmd --zone=public --add-port=80/tcp --permanent
+
+  - name: reload firewalld
+    service: name=firewalld state=reloaded
